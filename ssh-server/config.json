@@ -1,0 +1,20 @@
+{
+  "servers": [
+    {
+      "uuid": "df52cec3-5301-466e-8e22-8ad08b538b98",
+      "name": "name1",
+      "ip_address": "1.1.1.1",
+      "user": "ubuntu",
+      "port": "22",
+      "ssh_key": "/path/to/ssh/key/"
+    },
+    {
+      "uuid": "b63d1d9b-e0f7-447d-94c4-c721681948dc",
+      "name": "name2",
+      "ip_address": "2.2.2.2",
+      "user": "ubuntu",
+      "port": "22",
+      "ssh_key": "/path/to/ssh/key/id_rsa"
+    }
+  ]
+}
