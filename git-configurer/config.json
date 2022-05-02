@@ -1,0 +1,16 @@
+{
+  "git": [
+	  {
+		  "uuid": "970f89db-da62-4bd0-b9a9-395e11ec67b5",
+		  "profile": "profile1",
+		  "username": "profile1name.surname",
+		  "email": "profile1@example.it"
+	  },
+	  {
+		  "uuid": "1c71ee8c-7daf-4794-923e-e8e2538e1089",
+		  "profile": "profile2",
+		  "username": "profile2name.surname",
+		  "email": "profile2@example.com"
+	  }
+  ]
+}
