@@ -1,0 +1,5 @@
+{
+  "gitlab_ip": "https://gitlab.com",
+  "group_id": "134",
+  "token": "base64encoded_gitlab_access_token"
+}
