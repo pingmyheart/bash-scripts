@@ -37,15 +37,15 @@ _EOF_
 out=$(json_node)
 echo -e "$out"
 
-printf "Insert name "
+printf "Type name "
 read -r _name
-printf "Insert address "
+printf "Type ip address or symbolic name "
 read -r _address
-printf "Insert user "
+printf "Type user "
 read -r _user
-printf "Insert port "
+printf "Type port "
 read -r _port
-printf "Insert ssh key path "
+printf "Type ssh key path "
 read -r _path
 
 out=$(echo -e "$out" | sed -e "s|%uuid%|$(uuidgen)| g" \
