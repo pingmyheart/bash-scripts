@@ -2,20 +2,20 @@
 
 ### Trap signals
 signal_exit() {
-    local l_signal
-    l_signal="$1"
+  local l_signal
+  l_signal="$1"
 
-    case "$l_signal" in
-    INT)
-        error_exit "Program interrupted by user"
-        ;;
-    TERM)
-        error_exit "Program terminated"
-        ;;
-    *)
-        error_exit "Terminating on unknown signal"
-        ;;
-    esac
+  case "$l_signal" in
+  INT)
+    error_exit "Program interrupted by user"
+    ;;
+  TERM)
+    error_exit "Program terminated"
+    ;;
+  *)
+    error_exit "Terminating on unknown signal"
+    ;;
+  esac
 }
 
 trap "signal_exit TERM" TERM HUP
@@ -41,34 +41,34 @@ printf "Hello %s - Welcome to %s v%s\n" "$(whoami)" "$PROGRAM_NAME" "$PROGRAM_VE
 
 # Helpers
 clean_up() {
-    return
+  return
 }
 
 error_exit() {
-    local l_error_message
-    l_error_message="$1"
+  local l_error_message
+  l_error_message="$1"
 
-    printf "[ERROR] - %s\n" "${l_error_message:-'Unknown Error'}" >&2
-    echo "Exiting with exit code 1"
-    clean_up
-    exit 1
+  printf "[ERROR] - %s\n" "${l_error_message:-'Unknown Error'}" >&2
+  echo "Exiting with exit code 1"
+  clean_up
+  exit 1
 }
 
 graceful_exit() {
-    clean_up
-    exit 0
+  clean_up
+  exit 0
 }
 
 load_libraries() {
-    for _ext_bin in $EXTERNAL_BINARIES; do
-        if ! which "$_ext_bin" &>/dev/null; then
-            error_exit "Required binary $_ext_bin not found."
-        fi
-    done
+  for _ext_bin in $EXTERNAL_BINARIES; do
+    if ! which "$_ext_bin" &>/dev/null; then
+      error_exit "Required binary $_ext_bin not found."
+    fi
+  done
 }
 
 help_message() {
-    cat <<-_EOF_
+  cat <<-_EOF_
 
 Description  : SSH to specific server from configuration file,
 Example usage: 
@@ -82,46 +82,45 @@ Options:
   [--config]                         Specify json configuration file
   [--list]                           Show all servers config available
 _EOF_
-    return
+  return
 }
 
 ### Func
 log_debug() {
-    local l_message
-    l_message="$1"
+  local l_message
+  l_message="$1"
 
-    if [ $LOG_LEVEL == "DEBUG" ]; then
-        echo "[DEBUG] - $l_message"
-    fi
+  if [ $LOG_LEVEL == "DEBUG" ]; then
+    echo "[DEBUG] - $l_message"
+  fi
 }
 
 log_info() {
-    local l_message
-    l_message="$1"
+  local l_message
+  l_message="$1"
 
-    if [ $LOG_LEVEL == "STABLE" ]; then
-        echo "[INFO] - $l_message"
-    fi
+  if [ $LOG_LEVEL == "STABLE" ]; then
+    echo "[INFO] - $l_message"
+  fi
 }
 
-
 ask_user_permission() {
-    local l_message
-    l_message="$1"
+  local l_message
+  l_message="$1"
 
-    printf "%s (y/n): " "$l_message"
+  printf "%s (y/n): " "$l_message"
 
-    local l_continue
-    read -r l_continue
+  local l_continue
+  read -r l_continue
 
-    if [ "$l_continue" == "y" ]; then
-        echo "OK"
-    elif [ "$l_continue" == "n" ]; then
-        graceful_exit
-    else
-        echo "Invalid choice [$l_continue]! Retrying..."
-        ask_user_permission "$l_message"
-    fi
+  if [ "$l_continue" == "y" ]; then
+    echo "OK"
+  elif [ "$l_continue" == "n" ]; then
+    graceful_exit
+  else
+    echo "Invalid choice [$l_continue]! Retrying..."
+    ask_user_permission "$l_message"
+  fi
 }
 
 ### Check binaries
@@ -129,36 +128,36 @@ load_libraries
 
 ### Parse args
 while [[ -n "$1" ]]; do
-    case "$1" in
-    -h | --help)
-        help_message
-        graceful_exit
-        ;;
-    -v | --verbose)
-        LOG_LEVEL="DEBUG"
-        ;;
-    --trace)
-        set -o xtrace
-        ;;
-    --version)
-      printf "Running version: %s\n" "$PROGRAM_VERSION"
-      graceful_exit
-        ;;
-		-n | --name)
-			NAME=$2
-			  ;;
-		--config)
-			CONFIG_FILE=$2
-			  ;;
-		--list)
-			SHOW_CONF="TRUE"
-			  ;;
-    --* | -*)
-        usage >&2
-        error_exit "Unknown option $1"
-        ;;
-    esac
-    shift
+  case "$1" in
+  -h | --help)
+    help_message
+    graceful_exit
+    ;;
+  -v | --verbose)
+    LOG_LEVEL="DEBUG"
+    ;;
+  --trace)
+    set -o xtrace
+    ;;
+  --version)
+    printf "Running version: %s\n" "$PROGRAM_VERSION"
+    graceful_exit
+    ;;
+  -n | --name)
+    NAME=$2
+    ;;
+  --config)
+    CONFIG_FILE=$2
+    ;;
+  --list)
+    SHOW_CONF="TRUE"
+    ;;
+  --* | -*)
+    usage >&2
+    error_exit "Unknown option $1"
+    ;;
+  esac
+  shift
 done
 
 ### Checking args
@@ -200,7 +199,7 @@ for row in $(echo "${_servers}" | jq -r '.[] | @base64'); do
   if [[ "$(_jq .name)" == "$NAME" ]]; then
     # shellcheck disable=SC2046
     ssh -i $(_jq .ssh_key) $(_jq .user)@$(_jq .ip_address) -p $(_jq .port)
-		graceful_exit
+    graceful_exit
   fi
 done
 
