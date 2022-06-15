@@ -5,6 +5,10 @@
     "check_rate": 15,
     "enable_git_discovery": false
   },
+  "version_control": {
+    "enable_git_discovery": false,
+    "default_branch": "master"
+  },
   "projects": [
     {
       "uuid": "84aa4e13-a4f2-4a7d-8dd9-0af5be07c50f",

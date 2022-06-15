@@ -11,9 +11,10 @@ function boolean() {
 
 check_repo_and_pull() {
   local _folder=$1
+  local _branch=$2
   # shellcheck disable=SC2155
   local _pwd=$(pwd)
-  if [[ $(boolean "$DAEMON_ENABLE_GIT_DISCOVERY") == false ]]; then
+  if [[ $(boolean "$VERSION_CONTROL_ENABLE_GIT_DISCOVERY") == false ]]; then
     return
   fi
   # shellcheck disable=SC2164
@@ -21,7 +22,7 @@ check_repo_and_pull() {
   # Check if docker-compose folder il a git repo
   if git rev-parse --is-inside-work-tree &>/dev/null; then
     # Git repo case
-    git checkout master
+    git checkout "$_branch"
     git pull --rebase
   fi
   # shellcheck disable=SC2164

@@ -180,7 +180,7 @@ while [ 1 == 1 ]; do
     _compose_path=$(echo -e "$(_jq .compose_path)")
     _compose_directory=$(dirname "$_compose_path")
 
-    check_repo_and_pull "$_compose_directory"
+    check_repo_and_pull "$_compose_directory" "$VERSION_CONTROL_DEFAULT_BRANCH"
 
     # if there are differences between cached file and docker-compose
     if ! diff ./cache/"$_compose_uuid" "$_compose_path" &>/dev/null; then
