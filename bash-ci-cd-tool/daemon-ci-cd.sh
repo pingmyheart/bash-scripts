@@ -24,7 +24,7 @@ trap "signal_exit INT" INT
 ### Const
 readonly PROGRAM_NAME=${0##*/}
 readonly PROGRAM_VERSION="1.0.0"
-readonly EXTERNAL_BINARIES="jq docker docker-compose"
+readonly EXTERNAL_BINARIES="jq docker docker-compose sed git"
 readonly EXTERNAL_SOURCES="source.sh functions.sh"
 
 ### Args
