@@ -1,0 +1,14 @@
+{
+  "daemon": {
+    "name": "daemon-ci-cd.sh",
+    "version": "0.0.1-PROD",
+    "check_rate": 15,
+    "enable_git_discovery": false
+  },
+  "projects": [
+    {
+      "uuid": "84aa4e13-a4f2-4a7d-8dd9-0af5be07c50f",
+      "compose_path": "/home/arussi2/Documents/GitRepo/standaloneStack/mariadb/docker-compose.yml"
+    }
+  ]
+}
